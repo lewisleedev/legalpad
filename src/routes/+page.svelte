@@ -4,12 +4,11 @@
 	import { onMount, type SvelteComponent } from 'svelte';
 	import { isMobile } from '$lib/stores/uiStore';
 	import NoMobile from '$lib/ui/NoMobile.svelte';
+	import { version } from '$app/environment';
 
 	let editorVal: string;
 	let answerTitle = '';
 	let editorComp: SvelteComponent;
-	$: editorVal;
-	$: answerTitle;
 
 	function saveToFile(title: string) {
 		const blob = new Blob([editorVal], { type: 'text/plain' });
@@ -47,11 +46,23 @@
 		editorComp.updateEditor();
 	}
 
+	function loadLocalStorage() {
+		const savedContent = localStorage.getItem('legalpadContent');
+		const savedTitle = localStorage.getItem('legalpadTitle');
+		if (savedContent && savedTitle) {
+			editorVal = savedContent;
+			answerTitle = savedTitle;
+		}
+		editorComp.updateEditor();
+	}
+
 	onMount(() => {
 		if (window.innerWidth < 900) {
 			$isMobile = true;
 		}
 	});
+	$: editorVal;
+	$: answerTitle;
 </script>
 
 {#if $isMobile}
@@ -64,6 +75,7 @@
 				saveToFile(e.detail.saveTitle);
 			}}
 			on:loadFile={triggerFileInput}
+			on:loadLocal={loadLocalStorage}
 		></Header>
 		<input type="file" id="fileInput" on:change={loadFile} hidden />
 	</header>
@@ -71,7 +83,8 @@
 		<Pad bind:this={editorComp} bind:editorValue={editorVal} />
 		<footer class="py-1 text-center">
 			<p class="p-1 text-black text-opacity-50">
-				Legalpad v0.1.0 | <a href="https://github.com/lewisleedev/legalpad">Source code</a> | Made for
+				Legalpad v{version} |
+				<a href="https://github.com/lewisleedev/legalpad" class="underline">Source code</a> | Made for
 				Seol
 			</p>
 		</footer>

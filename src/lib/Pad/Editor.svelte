@@ -48,6 +48,7 @@
 				bind:this={editorElem}
 				on:input={() => {
 					updateEditorStats();
+					localStorage.setItem('legalpadContent', editorValue);
 					$editorStore.hasChanged = true;
 				}}
 				bind:innerHTML={editorValue}
