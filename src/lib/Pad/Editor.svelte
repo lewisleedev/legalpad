@@ -36,8 +36,8 @@
 	});
 </script>
 
-<div class="pad-container text-[16px]" style={`font-size: ${$zoomLevel}px`}>
-	<main class="pad-wrapper mx-auto mt-auto" style="zoom: {$zoomLevel};">
+<div class="pad-container" style={`font-size: ${$zoomLevel}px`}>
+	<main class="pad-wrapper mx-auto mt-auto">
 		<LineCounter />
 		<div class="editor-wrapper">
 			<div
@@ -66,6 +66,7 @@
 		padding-bottom: 0rem;
 		display: flex;
 		overflow: auto;
+		font-size: 16px;
 	}
 	.pad-wrapper {
 		height: 100%;
@@ -99,6 +100,7 @@
 			);
 
 		#editor {
+			min-height: 1em;
 			pointer-events: all;
 			cursor: auto;
 			user-select: auto;

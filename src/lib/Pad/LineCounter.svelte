@@ -25,12 +25,15 @@
 	.line-counter-wrapper {
 		margin-left: auto;
 		min-width: 4em;
-		align-content: center;
 		font-size: 0.6em;
+		overflow-y: visible;
+
 		.line-counter {
 			height: calc(2.5em); /* Because 0.6/1.5 = 2.5 */
 			margin-right: 1rem;
 			margin-left: auto;
+			margin-bottom: auto;
+			margin-top: 0px;
 			text-align: right;
 			display: flex;
 			span {
